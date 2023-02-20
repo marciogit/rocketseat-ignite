@@ -1,7 +1,8 @@
 
-import { Link, Hash } from 'phosphor-react';
+import { Link } from 'phosphor-react';
 
-import { StyledPost } from '../styles';
+import { StyledPost } from '../styles/post';
+import { Comments } from './Comments';
 
 export function Post({ author, content }) {
 	return (
@@ -20,12 +21,26 @@ export function Post({ author, content }) {
 			</header>
 
 			<div className="content">
-				<p>Hello guys!</p>
+				<p>New post!</p>
 				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo commodi omnis ea molestias at ex similique doloribus recusandae
 				unde vel? Libero impedit odit a, aperiam veniam nostrum nesciunt magni beatae?</p>
 
 				<p><Link size={15}/> <a href="#">link/link</a></p>
 				<p><a href="#">#hashtag, #hashtag</a></p>
+			</div>
+
+			<form className="commentPost">
+				<strong>Leave a comment</strong>
+
+				<textarea />
+
+				<footer>
+					<button type='submit'>Send</button>
+				</footer>
+			</form>
+
+			<div className="commentsList">
+				<Comments/>
 			</div>
 		</StyledPost>
 	)

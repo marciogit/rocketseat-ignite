@@ -1,5 +1,6 @@
 
-import { StyledHeader } from '../styles';
+import { StyledHeader } from '../styles/header';
+
 import feedLogo from '../images/feed-logo.svg';
 
 export function Header() {
