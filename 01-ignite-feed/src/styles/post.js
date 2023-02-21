@@ -23,6 +23,7 @@ export const StyledPost = styled('article') `
 
 			img {
 				width: 100px;
+				margin-right: 1rem;
 			}
 
 			.author-info {
@@ -53,8 +54,8 @@ export const StyledPost = styled('article') `
 
 	.commentPost {
 		width: 100%;
-		margin: 1.5rem 0 0 0;
-		padding: 1.5rem 0 0 0;
+		margin-top: 1.5rem;
+		padding-top: 1.5rem;
 		border-top: 1px solid #C4C4CC;
 
 		strong  {
@@ -65,7 +66,7 @@ export const StyledPost = styled('article') `
 		textarea {
 			width: 100%;
 			height: 6rem;
-			margin: 1rem 0 0 0;
+			margin-top: 1rem;
 			padding: 1rem;
 			line-height: 1.4;
 			background-color: #121214;

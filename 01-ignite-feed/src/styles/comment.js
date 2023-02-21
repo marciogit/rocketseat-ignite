@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const StyledComment = styled.div `
 	display: flex;
 	gap: 1rem;
-	margin: 1.5rem;
+	margin-top: 1.5rem;
 
-	img {
+	> img {
 		width: 3rem;
 		height: 3rem;
 		border-radius: 8px;

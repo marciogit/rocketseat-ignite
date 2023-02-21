@@ -20,14 +20,6 @@ export const StyledSiderbar = styled('aside') `
 		align-items: center;
 		margin-top: calc(1.5rem - 6px);
 
-		.avatar {
-			box-sizing: initial;
-			width: calc(4rem + 8px);
-			border: 4px solid #202024;
-			outline: 4px solid #00B37E;
-			border-radius: 8px;
-		}
-
 		strong {
 			margin-top: 1rem;
 		}

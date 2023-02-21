@@ -27,6 +27,7 @@ export default createGlobalStyle`
 		font-family: 'Roboto', sans-serif;
 		font-weight: 400;
 		font-size: 1rem;
+		box-sizing: border-box;
 	}
 `
 
@@ -38,4 +39,13 @@ export const Wrapper = styled.div `
 	padding: 0 1rem;
 	gap: 2rem;
 	align-items: flex-start;
+
+	@media (max-width: 768px) {
+
+		html {
+			font-size: 87.5%;
+		}
+
+		grid-template-columns: 1fr;
+	}
 `

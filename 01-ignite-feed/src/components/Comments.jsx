@@ -1,12 +1,12 @@
 
+import { Avatar } from "./Avatar";
 import { StyledComment } from "../styles/comment";
-
 import { ThumbsUp, Trash } from "phosphor-react";
 
-export function Comments() {
+export function Comments({ content }) {
 	return (
 		<StyledComment>
-			<img src="https://github.com/reactjs.png" alt="" />
+			<Avatar hasBorder={false} src="https://github.com/reactjs.png" alt="" />
 
 			<div className="commentBox">
 				<div className="content">
@@ -21,7 +21,7 @@ export function Comments() {
 						</button>
 					</header>
 
-					<p>Content</p>
+					<p>{content}</p>
 				</div>
 
 				<footer>

@@ -1,38 +1,69 @@
 
+import { useState } from 'react';
+import { format, formatDistanceToNow } from 'date-fns';
+import { Avatar } from "./Avatar";
 import { Link } from 'phosphor-react';
-
 import { StyledPost } from '../styles/post';
 import { Comments } from './Comments';
 
-export function Post({ author, content }) {
+export function Post({ author, content, publishedAt }) {
+
+	const publishedAtFormatted = format(publishedAt, "yyyy-MM-d 'at' k:mm'h'");
+	const publishedFromNow = formatDistanceToNow(publishedAt, {
+		addSuffix: true
+	});
+
+	const [comments, setComments] = useState(['First comment!']);
+	const [newComment, setNewComment] = useState('');
+
+	function handleAddComment(e) {
+		e.preventDefault();
+		// const newComment = e.target.comment.value;
+
+		setComments([...comments, newComment]);
+		setNewComment('');
+
+		// e.target.comment.value = ''
+	}
+
+	function handleNewComment(e) {
+		setNewComment(e.target.value);
+	}
+
 	return (
 		<StyledPost>
 			<header>
 				<div className="author">
-					<img src="https://github.com/reactjs.png" alt="" />
+					<Avatar src={author.avatarUrl} alt="" />
 
 					<div className="author-info">
-						<strong>ReactJs User</strong>
-						<span>Web Developer</span>
+						<strong>{author.name}</strong>
+						<span>{author.role}</span>
 					</div>
 				</div>
 
-				<time dateTime="2023-16-02 08:00:00">Published 1h ago</time>
+				<time title={publishedAtFormatted} dateTime={publishedAt.toISOString()}>{publishedFromNow}</time>
 			</header>
 
 			<div className="content">
-				<p>New post!</p>
-				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo commodi omnis ea molestias at ex similique doloribus recusandae
-				unde vel? Libero impedit odit a, aperiam veniam nostrum nesciunt magni beatae?</p>
-
-				<p><Link size={15}/> <a href="#">link/link</a></p>
-				<p><a href="#">#hashtag, #hashtag</a></p>
+				{content.map((line, i)=> {
+					if(line.type === 'p') {
+						return <p>{line.content}</p>
+					} else if(line.type === 'a') {
+						return <p><a href="#">{line.content}</a></p>
+					}
+				})}
 			</div>
 
-			<form className="commentPost">
+			<form className="commentPost" onSubmit={handleAddComment}>
 				<strong>Leave a comment</strong>
 
-				<textarea />
+				<textarea
+					name="comment"
+					placeholder='please add a comment'
+					value={newComment}
+					onChange={handleNewComment}
+				/>
 
 				<footer>
 					<button type='submit'>Send</button>
@@ -40,7 +71,9 @@ export function Post({ author, content }) {
 			</form>
 
 			<div className="commentsList">
-				<Comments/>
+				{comments.map((comment, i)=> (
+					<Comments content={comment}/>
+				))}
 			</div>
 		</StyledPost>
 	)
