@@ -1,13 +1,13 @@
 
 import GlobalStyle, { Wrapper } from './styles';
 
-import { Post } from './components/Post'
+import { Post, PostType } from './components/Post'
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 
 export function App() {
 
-	const posts = [
+	const posts: PostType[] = [
 		{
 			id: 1,
 			author: {
@@ -50,9 +50,7 @@ export function App() {
 				<main>
 					{posts.map((post, i)=>(
 						<Post
-							author={post.author}
-							content={post.content}
-							publishedAt={post.publishedAt}
+							post={post}
 						/>
 					))}
 				</main>

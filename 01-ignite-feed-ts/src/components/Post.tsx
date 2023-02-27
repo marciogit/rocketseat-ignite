@@ -1,35 +1,57 @@
 
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns';
 import { Avatar } from "./Avatar";
 import { Link } from 'phosphor-react';
 import { StyledPost } from '../styles/post';
 import { Comments } from './Comments';
 
-export function Post({ author, content, publishedAt }) {
+interface Author  {
+	name: string,
+	role: string,
+	avatarUrl: string
+}
 
-	const publishedAtFormatted = format(publishedAt, "yyyy-MM-d 'at' k:mm'h'");
-	const publishedFromNow = formatDistanceToNow(publishedAt, { addSuffix: true });
+interface Content {
+	type: 'p' | 'a',
+	content: string
+}
+
+export interface PostType {
+	id: number,
+	author: Author,
+	publishedAt: Date,
+	content: Content[]
+}
+
+interface postProps {
+	post: PostType
+}
+
+export function Post({ post }: postProps) {
+
+	const publishedAtFormatted = format(post.publishedAt, "yyyy-MM-d 'at' k:mm'h'");
+	const publishedFromNow = formatDistanceToNow(post.publishedAt, { addSuffix: true });
 
 	const [comments, setComments] = useState(['First comment!']);
 	const [newComment, setNewComment] = useState('');
 
-	function handleAddComment(e) {
+	function handleAddComment(e: FormEvent) {
 		e.preventDefault();
 		setComments([...comments, newComment]);
 		setNewComment('');
 	}
 
-	function handleNewComment(e) {
+	function handleNewComment(e: ChangeEvent<HTMLTextAreaElement>) {
 		setNewComment(e.target.value);
 		e.target.setCustomValidity('');
 	}
 
-	function handleInvalidComment(e) {
+	function handleInvalidComment(e: InvalidEvent<HTMLTextAreaElement>) {
 		e.target.setCustomValidity('This field is mandatory');
 	}
 
-	function deleteComment(commentToDelete) {
+	function deleteComment(commentToDelete: string) {
 		const commentsWithoutDeletedOne = comments.filter(comment => comment !== commentToDelete);
 		setComments(commentsWithoutDeletedOne);
 	}
@@ -40,19 +62,19 @@ export function Post({ author, content, publishedAt }) {
 		<StyledPost>
 			<header>
 				<div className="author">
-					<Avatar src={author.avatarUrl} alt=""/>
+					<Avatar src={post.author.avatarUrl} alt=""/>
 
 					<div className="author-info">
-						<strong>{author.name}</strong>
-						<span>{author.role}</span>
+						<strong>{post.author.name}</strong>
+						<span>{post.author.role}</span>
 					</div>
 				</div>
 
-				<time title={publishedAtFormatted} dateTime={publishedAt.toISOString()}>{publishedFromNow}</time>
+				<time title={publishedAtFormatted} dateTime={post.publishedAt.toISOString()}>{publishedFromNow}</time>
 			</header>
 
 			<div className="content">
-				{content.map((line, i)=> {
+				{post.content.map((line, i)=> {
 					if(line.type === 'p') {
 						return <p>{line.content}</p>
 					} else if(line.type === 'a') {

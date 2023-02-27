@@ -4,7 +4,12 @@ import { StyledComment } from "../styles/comment";
 import { ThumbsUp, Trash } from "phosphor-react";
 import { useState } from "react";
 
-export function Comments({ content, onDeleteComment }) {
+interface commentsProps {
+	content: string,
+	onDeleteComment: (comment: string)=> void
+}
+
+export function Comments({ content, onDeleteComment }: commentsProps) {
 
 	const [ likesCount, setLikesCount ] = useState(0);
 
@@ -18,7 +23,7 @@ export function Comments({ content, onDeleteComment }) {
 
 	return (
 		<StyledComment>
-			<Avatar hasBorder={false} src="https://github.com/reactjs.png" alt="" />
+			<Avatar hasBorder={false} src="https://github.com/reactjs.png" alt=""/>
 
 			<div className="commentBox">
 				<div className="content">
